@@ -1,0 +1,186 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="description" content="Assign groups using ranked preferences and group-size limits.">
+  <title>PBGAT — Preference-based Group Assignment Tool</title>
+  <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+  <main class="page">
+    <header class="app-header">
+      <p class="eyebrow">PBGAT · Version 1</p>
+      <h1>Preference-based Group Assignment Tool</h1>
+      <p class="accreditation">Created by Fred Pollard · United Kingdom · 2026</p>
+    </header>
+
+    <fieldset class="mode-picker mode-switcher">
+      <legend class="visually-hidden">Choose a mode</legend>
+      <label class="mode-option">
+        <input type="radio" name="app-mode" value="basic" checked>
+        <span><strong>Basic</strong></span>
+      </label>
+      <label class="mode-option">
+        <input type="radio" name="app-mode" value="advanced">
+        <span><strong>Advanced</strong></span>
+      </label>
+    </fieldset>
+
+    <section class="panel start-panel" aria-labelledby="start-title">
+      <p class="eyebrow">Step 1</p>
+      <h2 id="start-title">Start here</h2>
+      <p class="upload-instruction">Prepare your CSV using one of these options, then select the completed file below.</p>
+      <div class="template-links">
+        <a class="link-button" href="https://drive.google.com/drive/folders/16GBQ4tkvpgSs4dIG8JlL04bskulHZh7M?usp=drive_link" target="_blank" rel="noopener noreferrer">Open Google Form template folder</a>
+        <a class="link-button secondary-link csv-template-download" href="pbgat_csv_template.csv" type="text/csv" download="PBGAT-response-template.csv">Download CSV template</a>
+      </div>
+      <p id="csv-template-download-note" class="hint" aria-live="polite">If the CSV opens in your browser, right-click “Download CSV template” and choose “Save link as…”.</p>
+      <label class="file-label" for="csv-file">Upload Response CSV</label>
+      <input id="csv-file" type="file" accept=".csv,text/csv">
+      <p class="hint">Your file is checked in this browser and is not uploaded.</p>
+      <div class="guide-links" aria-label="Tool information">
+        <button id="about-open" class="text-button" type="button">What is this tool?</button>
+        <button id="instructions-open" class="text-button" type="button">User instructions</button>
+        <button id="data-protection-open" class="text-button" type="button">Data protection</button>
+      </div>
+    </section>
+
+    <dialog id="about-dialog" aria-labelledby="about-title">
+      <div class="dialog-content">
+        <button class="dialog-close" type="button" aria-label="Close dialog">×</button>
+        <h2 id="about-title">What is this tool?</h2>
+        <p>PBGAT (Preference-based Group Assignment Tool) helps teachers organise children into groups using the preferences collected from their class.</p>
+        <p>It uses the children’s ranked choices and the group sizes supplied by the user to suggest groupings. Vetoes and avoiding single-person groups are firm rules. Groups are single-sex by default, but the user can allow mixed-sex groups. The tool then aims to give as many children as possible at least one of their choices, with higher-ranked choices preferred.</p>
+        <p>The tool proposes a grouping and reports how well it matched the children’s choices. Some preferences may not be possible to satisfy together, so users should review the proposed groups before using them.</p>
+      </div>
+    </dialog>
+    <dialog id="instructions-dialog" aria-labelledby="instructions-title">
+      <div class="dialog-content">
+        <button class="dialog-close" type="button" aria-label="Close dialog">×</button>
+        <h2 id="instructions-title">User instructions</h2>
+        <h3>Choose how to prepare your CSV</h3>
+        <p>You can either use the Google Form template to collect responses, or fill in the downloadable CSV template yourself. Both options produce a file to upload on the PBGAT start page.</p>
+
+        <h3>Option 1: Use the Google Form template</h3>
+        <ol>
+          <li>Open the <a href="https://drive.google.com/drive/folders/16GBQ4tkvpgSs4dIG8JlL04bskulHZh7M?usp=drive_link" target="_blank" rel="noopener noreferrer">Google Form template folder</a>.</li>
+          <li>Make your own copy of the read-only form template in your Google Drive, then share your copy with pupils to collect responses.</li>
+          <li>Open the response spreadsheet linked to your copied form. Add any teacher-entered vetoes in the <strong>Veto 1</strong> and <strong>Veto 2</strong> columns; pupils should not fill these fields.</li>
+          <li>In Google Sheets, choose <strong>File → Download → Comma-separated values (.csv)</strong>.</li>
+          <li>Return to PBGAT and select the downloaded CSV file.</li>
+        </ol>
+
+        <h3>Option 2: Fill in the CSV template yourself</h3>
+        <ol>
+          <li><a class="csv-template-download" href="pbgat_csv_template.csv" type="text/csv" download="PBGAT-response-template.csv">Download the CSV template</a> and open it in a spreadsheet app, such as Google Sheets.</li>
+          <li>Delete the fictional example row and enter one row per pupil. Keep the header row and column names unchanged.</li>
+          <li>Enter each pupil’s five preferred group members in rank order. Choices must refer to pupils included in the respondent list.</li>
+          <li>Leave veto columns blank unless a teacher needs to record a veto. Vetoes must be entered by staff, not pupils.</li>
+          <li>Download or save the completed sheet as a comma-separated values (.csv) file, then select that file on the PBGAT start page.</li>
+        </ol>
+        <h3>Choose group settings</h3>
+        <p>After reviewing the CSV, enter the number of groups and their maximum sizes. <strong>Single-sex groupings only</strong> is checked by default; untick it if mixed-sex groups are acceptable. Vetoes and the minimum group size of two remain in force either way.</p>
+      </div>
+    </dialog>
+    <dialog id="data-protection-dialog" aria-labelledby="data-protection-title">
+      <div class="dialog-content">
+        <button class="dialog-close" type="button" aria-label="Close dialog">×</button>
+        <h2 id="data-protection-title">Data protection</h2>
+        <p>The CSV may contain children’s personal information. PBGAT reads and processes the file in your browser to check the responses and create proposed groupings. The app does not upload the CSV or results to its website or send them to a PBGAT server.</p>
+        <p>The app does not create an account or save the CSV in a PBGAT database. Information is held temporarily in the open browser page while you use the tool. Any files you download, copies kept elsewhere, and information in the original Google Sheet remain subject to your school’s usual handling and retention rules.</p>
+        <p>Your school or other responsible organisation remains responsible for deciding and documenting the lawful basis and purpose for using this information, providing appropriate privacy information to pupils and families, and applying its security, access, retention, and deletion policies. This short notice describes PBGAT’s handling only; it does not replace your organisation’s privacy notice or legal advice. Contact your school’s data protection lead if you are unsure whether you may use the data.</p>
+      </div>
+    </dialog>
+
+    <section id="results" class="results" aria-live="polite" hidden>
+      <div id="summary" class="summary"></div>
+      <div id="issues-section" class="panel" hidden>
+        <h2>Needs attention</h2>
+        <ul id="issues" class="issues"></ul>
+      </div>
+      <div id="continue-section" class="panel" hidden>
+        <h2>Review complete</h2>
+        <p id="continue-note">No blocking data errors were found. When you have reviewed the report and preview, continue to group setup.</p>
+        <button id="continue-button" type="button">Proceed to group setup</button>
+      </div>
+      <div id="preview-section" class="panel" hidden>
+        <h2>Response preview</h2>
+        <p id="preview-note" class="hint"></p>
+        <div class="table-wrap"><table id="preview"></table></div>
+      </div>
+    </section>
+
+    <section id="group-setup" class="panel" aria-labelledby="group-setup-title" hidden>
+      <p class="eyebrow">Step 2</p>
+      <h2 id="group-setup-title">Describe the groups</h2>
+      <p>Enter how many groups there will be and the maximum size of each. Single-sex groups are selected by default.</p>
+      <label class="single-sex-option"><input id="single-sex-groups" type="checkbox" checked> Single-sex groupings only</label>
+      <fieldset>
+        <legend>Will all groups have the same maximum size?</legend>
+        <label class="choice"><input type="radio" name="group-type" value="regular" checked> Same-size groups</label>
+        <label class="choice"><input type="radio" name="group-type" value="irregular"> Different-size groups</label>
+      </fieldset>
+
+      <div id="regular-fields" class="group-fields">
+        <label>Number of groups <input id="regular-count" type="number" min="1" step="1" inputmode="numeric"></label>
+        <label>Maximum people in each group <input id="regular-beds" type="number" min="1" step="1" inputmode="numeric"></label>
+      </div>
+
+      <div id="irregular-fields" class="group-fields" hidden>
+        <p class="hint">Add one row for each group size. For example, 3 groups with a maximum of 4 people each can be entered as one row.</p>
+        <div id="group-sizes"></div>
+        <button id="add-group-size" type="button" class="secondary">Add group size</button>
+      </div>
+      <div id="capacity-summary" class="capacity-summary" aria-live="polite">Enter group details to see total capacity.</div>
+      <p id="capacity-error" class="field-error" role="alert" hidden></p>
+      <details id="search-settings" class="search-settings">
+        <summary>Optional search seed</summary>
+        <label>Seed <input id="search-seed" type="number" min="0" max="4294967295" step="1" inputmode="numeric"></label>
+        <p class="hint">Leave blank to use a random seed. Enter a reported seed to reproduce that run.</p>
+      </details>
+      <button id="prepare-assignment" type="button">Generate group assignments</button>
+      <p id="assignment-status" class="assignment-status" aria-live="polite" hidden></p>
+      <section id="assignment-analysis" class="analysis" hidden>
+        <h3>How the engine analysed the responses</h3>
+        <p class="hint">These are planning clues only. They do not lock pupils into groups.</p>
+        <h3>Group size and capacity check</h3>
+        <p id="feasibility-note"></p>
+        <ul id="feasibility-issues"></ul>
+        <h3>Tricky cases</h3>
+        <ul id="tricky-cases"></ul>
+        <h3>Suggested pairs</h3>
+        <ul id="suggested-pairs"></ul>
+        <h3>Mutual-choice groups</h3>
+        <ul id="mutual-groups"></ul>
+        <details>
+          <summary>Popularity counts</summary>
+          <ol id="popularity-list"></ol>
+        </details>
+      </section>
+      <div id="assignment-results" class="assignment-results" hidden>
+        <h3>Group assignments</h3>
+        <div id="coverage-summary" class="coverage-summary" role="status"></div>
+        <ol id="group-assignments"></ol>
+        <div class="result-actions">
+          <button id="export-assignments" type="button" class="secondary">Download group assignments CSV</button>
+          <div class="retry-actions">
+            <p>Unsatisfied with these results?</p>
+            <button id="retry-assignment" type="button">Try again with a different seed</button>
+          </div>
+        </div>
+        <div id="uncovered-section" hidden>
+          <h3>Pupils without a preferred group member</h3>
+          <ul id="uncovered-pupils"></ul>
+        </div>
+        <details id="result-details" class="result-details">
+          <summary>More about this result</summary>
+          <ul id="success-report"></ul>
+        </details>
+      </div>
+    </section>
+  </main>
+  <script src="assignment-engine.js" defer></script>
+  <script src="app.js" defer></script>
+</body>
+</html>
